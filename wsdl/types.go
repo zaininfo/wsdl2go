@@ -194,6 +194,7 @@ type Element struct {
 	Min         int          `xml:"minOccurs,attr"`
 	Max         string       `xml:"maxOccurs,attr"` // can be # or unbounded
 	Nillable    bool         `xml:"nillable,attr"`
+	SimpleType  *SimpleType  `xml:"simpleType"`
 	ComplexType *ComplexType `xml:"complexType"`
 }
 
