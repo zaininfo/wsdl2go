@@ -355,6 +355,10 @@ func (ge *goEncoder) cacheTypes(d *wsdl.Definitions) {
 			ct := *v.ComplexType
 			ct.Name = v.Name
 			ge.ctypes[v.Name] = &ct
+		} else if v.Type == "" && v.SimpleType != nil {
+			st := *v.SimpleType
+			st.Name = v.Name
+			ge.stypes[v.Name] = &st
 		}
 	}
 	// simple types map 1:1 to go basic types

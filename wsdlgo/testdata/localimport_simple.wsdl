@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:emp="http://example.com/employee.wsdl"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:types="http://example.com/employee.xsd"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema" name="Emp"
+                  targetNamespace="http://example.com/employee.xsd">
+
+    <wsdl:types>
+        <xs:schema version="29.0">
+            <xs:import namespace="http://example.com/employee.xsd" schemaLocation="testdata/localimport_simple.xsd"/>
+        </xs:schema>
+    </wsdl:types>
+
+    <wsdl:message name="employee-name-request">
+        <wsdl:part element="types:employee-id" name="input"/>
+    </wsdl:message>
+
+    <wsdl:message name="employee-name-reply">
+        <wsdl:part element="types:employee-name" name="output"/>
+    </wsdl:message>
+
+    <wsdl:portType name="EmpPortType">
+        <wsdl:operation name="employee-name-request">
+            <wsdl:input message="emp:employee-name-request"/>
+            <wsdl:output message="emp:employee-name-reply"/>
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="EmpBinding" type="emp:EmpPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="employee-name-request">
+            <soap:operation soapAction="http://example.com/processMessage" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="emp-ws">
+        <wsdl:port binding="emp:EmpBinding" name="Emp">
+            <soap:address
+                    location="https://example.com/EmpPortType"/>
+        </wsdl:port>
+    </wsdl:service>
+
+</wsdl:definitions>
